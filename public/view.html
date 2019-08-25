@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>BotUI - Hello World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/botui/build/botui-theme-default.css" />
+</head>
+
+<body>
+    <div>
+        <h1>My header</h1>
+    </div>
+    <div class="botui-app-container" id="hello-world">
+        <bot-ui></bot-ui>
+    </div>
+    <div>
+        <h1>My header</h1>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/botui/build/botui.js"></script>
+    <script>
+        var botui = new BotUI('hello-world');
+
+
+        const my_bot = async () => {
+
+            await botui.message.add({
+                content: 'hello human, look my awesome video'
+            });
+
+            await botui.message.add({
+                delay: 1000,
+                type: 'embed', // this is 'text' by default
+                content: 'https://www.youtube.com/embed/ZRBH5vHhm4c'
+            });
+
+
+            await botui.message.add({
+                delay: 1000,
+                content:' please, give a score'
+            });
+
+            const resp = await botui.action.button({
+                delay: 1000,
+                action: [
+                    { // show only one button
+                        text: 'One',
+                        value: 'one'
+                    },
+                    { // show only one button
+                        text: 'Two',
+                        value: 'two'
+                    },
+                    { // show only one button
+                        text: 'Three',
+                        value: 'three'
+                    }
+                ]
+            });
+
+            botui.message.add({
+                delay: 1000,
+                content: `so you choose solution ${resp.text}`
+            });
+        };
+        my_bot();
+
+
+
+
+    </script>
+</body>
+
+</html>
